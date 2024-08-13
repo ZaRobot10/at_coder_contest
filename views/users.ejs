@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .back-button {
+            display: block;
+            width: 100px;
+            padding: 10px;
+            margin: 20px auto;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Information</h1>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Rating</th>
+            <th>Rank</th>
+            <th>Affiliation</th>
+            <th>Kyu Ranking</th>
+        </tr>
+        <% users.forEach(user => { %>
+            <tr>
+                <td><%= user.username %></td>
+                <td><%= user.numericalRating === 0 ? 'Unrated' : user.numericalRating %><% if (user.isProvisional) { %> (Provisional)<% } %></td>
+                <td><%= user.numericalRating === 0 ? 'NA' : user.rank %></td>
+                <td><%= user.affiliation %></td>
+                <td><%= user.numericalRating === 0 ? 'NA' : user.kyuRanking %></td>
+            </tr>
+        <% }) %>
+    </table>
+
+    <a href="/" class="back-button">Back</a>
+</body>
+</html>

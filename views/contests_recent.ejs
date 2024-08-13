@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        form {
+            margin: 0;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upcoming Contests</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Title</th>
+                <th>Link</th>
+                <th>Ranking</th> <!-- New column for ranking -->
+            </tr>
+        </thead>
+        <tbody>
+            <% contests.upcoming.forEach(contest => { 
+                const link = contest.link;
+                const contestNumber = link.slice(-3);
+                const contestType = link.slice(-6, -3);
+            %>
+                <tr>
+                    <td><%= contest.time %></td>
+                    <td><%= contest.title %></td>
+                    <td><a href="<%= contest.link %>" target="_blank">View Contest</a></td>
+                    <td>
+                        <form action="/contests" method="POST">
+                            <input type="hidden" name="contestType" value="<%= contestType %>">
+                            <input type="hidden" name="contestNumber" value="<%= contestNumber %>">
+                            <button type="submit">View Ranking</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <h2>Recent Contests</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Title</th>
+                <th>Link</th>
+                <th>Ranking</th> <!-- New column for ranking -->
+            </tr>
+        </thead>
+        <tbody>
+            <% contests.recent.forEach(contest => { 
+                const link = contest.link;
+                const contestNumber = link.slice(-3);
+                const contestType = link.slice(-6, -3);
+            %>
+                <tr>
+                    <td><%= contest.time %></td>
+                    <td><%= contest.title %></td>
+                    <td><a href="<%= contest.link %>" target="_blank">View Contest</a></td>
+                    <td>
+                        <form action="/contests" method="POST">
+                            <input type="hidden" name="contestType" value="<%= contestType %>">
+                            <input type="hidden" name="contestNumber" value="<%= contestNumber %>">
+                            <button type="submit">View Ranking</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

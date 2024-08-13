@@ -18,27 +18,51 @@
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-
         }
 
         h1 {
             text-align: center;
             color: #333;
         }
-        form {
+
+        .container {
             background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 370px;
+            max-width: 400px;
             width: 100%;
         }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .button-group button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .button-group button:hover {
+            background-color: #0056b3;
+        }
+
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
             color: #555;
         }
+
         select, input[type="number"] {
             width: 100%;
             padding: 8px;
@@ -46,7 +70,8 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        button {
+
+        button[type="submit"] {
             width: 100%;
             padding: 10px;
             background-color: #28a745;
@@ -56,24 +81,64 @@
             font-size: 16px;
             cursor: pointer;
         }
-        button:hover {
+
+        button[type="submit"]:hover {
             background-color: #218838;
+        }
+
+        .header-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-buttons a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            text-align: center;
+        }
+
+        .header-buttons a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <form action="/contests" method="POST">
-        <h1>Select Contest</h1>
-        <label for="contestType">Contest Type:</label>
-        <select name="contestType" id="contestType">
-            <option value="abc">Beginner's Contest</option>
-            <option value="arc">Regular Contest</option>
-        </select>
-        
-        <label for="contestNumber">Contest Number:</label>
-        <input type="number" name="contestNumber" id="contestNumber" required>
-        
-        <button type="submit">Submit</button>
-    </form>
+    <div class="header-buttons">
+        <a href="/" target="_blank">AtCoder</a>
+        <a href="https://leetcode-leaderboard-2.onrender.com/" target="_blank">LeetCode</a>
+    </div>
+
+    <div class="container">
+        <div class="button-group">
+            <button type="button" onclick="location.href='/contest_recent'">Contests</button>
+            <button type="button" onclick="location.href='/'">Search Contest</button>
+            <button type="button" onclick="location.href='/ranking'">Ranking</button>
+        </div>
+
+        <form action="/contests" method="POST">
+            <h1>Select Contest</h1>
+            <label for="contestType">Contest Type:</label>
+            <select name="contestType" id="contestType">
+                <option value="abc">Beginner's Contest</option>
+                <option value="arc">Regular Contest</option>
+            </select>
+
+            <label for="contestNumber">Contest Number:</label>
+            <input type="number" name="contestNumber" id="contestNumber" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
