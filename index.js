@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 
-const usernames = ['CodeShark', 'krishankant05', 'Deepanshu_Sharma', 'Za_Robot10', 'ananyak84', 'kalpitdon', 'varun94'];
+const usernames = ['CodeShark', 'krishankant05', 'Deepanshu_Sharma', 'Za_Robot10', 'ananyak84', 'kalpitdon', 'varun94', 'AlphaSimar'];
 const sessionCookie = process.env.SESSION_COOKIE;
 
 
