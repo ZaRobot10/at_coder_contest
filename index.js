@@ -205,6 +205,83 @@ function formatElapsedTime(elapsedTimeInSeconds) {
     return `${formattedMinutes}:${formattedSeconds}`;
 }
 
+
+async function fetchContestsCodeChef() {
+    try {
+        const url = 'https://www.codechef.com/api/list/contests/all?sort_by=START&sorting_order=asc&offset=0&mode=all';
+        const response = await axios.get(url);
+        const contests = response.data;
+
+        const upcomingContests = [];
+        const pastContests = [];
+
+        contests.future_contests.forEach(contest => {
+            upcomingContests.push({
+                name: contest.contest_name,
+                code: contest.contest_code,
+                startDate: contest.contest_start_date_iso,
+                endDate: contest.contest_end_date_iso,
+                distinct_users : contest.distinct_users,
+            });
+        });
+
+        contests.past_contests.forEach(contest => {
+            // console.log(contest);
+            pastContests.push({
+                name: contest.contest_name,
+                code: contest.contest_code,
+                startDate: contest.contest_start_date_iso,
+                endDate: contest.contest_end_date_iso,
+                distinct_users : contest.distinct_users,
+            });
+        });
+
+        console.log('Upcoming Contests:', upcomingContests);
+        // console.log('Past Contests:', pastContests);
+
+    } catch (error) {
+        console.error('Error fetching contests:', error);
+    }
+}
+
+fetchContestsCodeChef();
+
+async function getData() {
+    const browser = await puppeteer.launch({
+        args: [
+          "--disable-setuid-sandbox",
+          "--no-sandbox",
+          "--single-process",
+          "--no-zygote",
+        ],
+        executablePath:
+          process.env.NODE_ENV === "production"
+            ? process.env.PUPPETEER_EXECUTABLE_PATH
+            : puppeteer.executablePath(),
+      });
+    const page = await browser.newPage();
+
+    // Go to the page
+    await page.goto('https://www.codechef.com/rankings/START145C?itemsPerPage=100&order=asc&page=1&search=bit_spark&sortBy=rank',  { waitUntil: 'networkidle2' });
+    
+    
+  const data = await page.evaluate(() => {
+    // Select all rows with the specified class
+    const rows = document.querySelectorAll('#MUIDataTableBodyRow-0');
+    return Array.from(rows).map(row => {
+        // Extract all text content from the row
+        return {
+            textContent: row.innerText.trim(), // You can modify this to extract specific cell data if needed
+        };
+    });
+});
+
+console.log(data);
+
+    await browser.close();
+}
+
+getData();
 app.get('/', (req, res) => {
     const error = req.query.error || null;
 
