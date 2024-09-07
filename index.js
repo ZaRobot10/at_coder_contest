@@ -137,7 +137,7 @@ contests = await fetchContests();
 cron.schedule('0 * * * *', async () => {
     console.log('Fetching contests...');
     try {
-        const contests = await fetchContests();
+        contests = await fetchContests();
         console.log('Upcoming Contests:', contests.upcoming);
         console.log('Recent Contests:', contests.recent);
     } catch (error) {
